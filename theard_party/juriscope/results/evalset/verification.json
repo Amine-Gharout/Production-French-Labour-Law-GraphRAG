@@ -1,0 +1,114 @@
+{
+  "modeles": {
+    "claude-haiku-4-5-20251001": 338
+  },
+  "jetons_entree": 193284,
+  "jetons_sortie": 79486,
+  "questions_generees": 338,
+  "questions_gardees": 276,
+  "par_type": {
+    "factuelle": {
+      "generees": 180,
+      "gardees": 159,
+      "dev": 95
+    },
+    "paraphrase": {
+      "generees": 40,
+      "gardees": 31,
+      "dev": 19
+    },
+    "multi-articles": {
+      "generees": 40,
+      "gardees": 29,
+      "dev": 17
+    },
+    "convention contre code": {
+      "generees": 38,
+      "gardees": 28,
+      "dev": 17
+    },
+    "hors corpus": {
+      "generees": 40,
+      "gardees": 29,
+      "dev": 17
+    }
+  },
+  "rejets": {
+    "extrait absent de l'article": 39,
+    "question recopiée du texte": 19,
+    "forme de la question": 1,
+    "paraphrase trop proche du texte": 3
+  },
+  "rejets_par_id": {
+    "extrait absent de l'article": [
+      "q0002",
+      "q0018",
+      "q0067",
+      "q0075",
+      "q0077",
+      "q0093",
+      "q0106",
+      "q0116",
+      "q0118",
+      "q0121",
+      "q0132",
+      "q0135",
+      "q0146",
+      "q0148",
+      "q0157",
+      "q0158",
+      "q0164",
+      "q0170",
+      "q0172",
+      "q0175",
+      "q0197",
+      "q0218",
+      "q0219",
+      "q0227",
+      "q0229",
+      "q0230",
+      "q0274",
+      "q0275",
+      "q0279",
+      "q0285",
+      "q0288",
+      "q0304",
+      "q0306",
+      "q0309",
+      "q0312",
+      "q0318",
+      "q0323",
+      "q0328",
+      "q0329"
+    ],
+    "question recopiée du texte": [
+      "q0012",
+      "q0025",
+      "q0059",
+      "q0064",
+      "q0111",
+      "q0165",
+      "q0171",
+      "q0173",
+      "q0210",
+      "q0232",
+      "q0263",
+      "q0276",
+      "q0280",
+      "q0281",
+      "q0283",
+      "q0292",
+      "q0300",
+      "q0307",
+      "q0335"
+    ],
+    "forme de la question": [
+      "q0023"
+    ],
+    "paraphrase trop proche du texte": [
+      "q0044",
+      "q0068",
+      "q0095"
+    ]
+  }
+}

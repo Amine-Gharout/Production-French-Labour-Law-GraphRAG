@@ -1,0 +1,51 @@
+name: evalset
+
+# Génère le jeu d'évaluation par l'API Anthropic, le vérifie et le commite. Le générateur ne
+# réécrit jamais une question existante : relancer complète un jeu interrompu.
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/evalset.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  evalset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+          cache: pip
+      - uses: actions/cache@v6
+        with:
+          path: data/raw
+          key: npm-${{ hashFiles('data/sources.json') }}
+      - run: make data
+      - name: Génération des questions
+        shell: bash
+        run: .venv/bin/python -m juriscope.evalset.generate_questions 2>&1 | tee generation.log
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      # la dernière ligne du journal, souvent le message de l'API, devient une annotation
+      # visible sur la page du run sans être connecté
+      - name: Erreur de génération
+        if: failure()
+        run: echo "::error title=Génération::$(tail -n 1 generation.log)"
+      - run: .venv/bin/python -m juriscope.evalset.verify
+      # même après un échec, les questions déjà produites sont gardées pour la reprise
+      - name: Commit du jeu
+        if: ${{ !cancelled() }}
+        env:
+          MESSAGE: ${{ job.status == 'success' && 'Jeu d''évaluation généré et vérifié' || 'Génération du jeu d''évaluation interrompue, à reprendre' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/questions results
+          git diff --cached --quiet || git commit -m "$MESSAGE"
+          git pull --rebase
+          git push
