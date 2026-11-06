@@ -218,4 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+<<<<<<< HEAD
 Plan.md
+=======
+>>>>>>> fcae2e38776c2f2d9cf6ead4f29a074c8a973fd1
